@@ -531,7 +531,7 @@ static bool __unix_DownloadImpl(Memfile* this, const char* url, DownloadStatus* 
 
 #endif
 
-extern void info_prog_end(void);
+extern void info_prog_end(const char *ref);
 
 bool Memfile_Download(Memfile* this, const char* url, const char* message) {
 	bool result = EXIT_FAILURE;
@@ -578,7 +578,7 @@ bool Memfile_Download(Memfile* this, const char* url, const char* message) {
 		if (message)
 			info_progf(message, BinToMb(this->size), BinToMb(total_size));
 	}
-	info_prog_end();
+	info_prog_end(message);
 	
 	result = EXIT_SUCCESS;
 	
@@ -595,7 +595,7 @@ bool Memfile_Download(Memfile* this, const char* url, const char* message) {
 		
 		if (!__unix_DownloadImpl(this, url, &status))
 			return EXIT_FAILURE;
-		info_prog_end();
+		info_prog_end(message);
 	}
 	
 	result = EXIT_SUCCESS;

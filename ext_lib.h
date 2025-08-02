@@ -147,7 +147,7 @@ void errr(const char* fmt, ...);
 void errr_align(const char* info, const char* fmt, ...);
 void info(const char* fmt, ...);
 void info_align(const char* info, const char* fmt, ...);
-void info_prog_end(void);
+void info_prog_end(const char *ref);
 void info_fastprog(const char* info, int a, int b);
 void info_fastprogf(const char* info, f64 a, f64 b);
 void info_prog(const char* info, int a, int b);

@@ -290,10 +290,13 @@ void info_align(const char* info, const char* fmt, ...) {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-void info_prog_end(void) {
+void info_prog_end(const char *ref) {
 	if (gInfoProgState) {
+		static const char *prevRef;
 		gInfoProgState = false;
-		xl_fprintf(stdout, "\n");
+		// need only one newline printed at end
+		if (prevRef != ref && (prevRef = ref))
+			xl_fprintf(stdout, "\n");
 	}
 }
 
@@ -312,7 +315,7 @@ void info_fastprog(const char* info, int a, int b) {
 	prev = a + 1;
 	
 	if (a == b && b != 0)
-		info_prog_end();
+		info_prog_end(info);
 }
 
 void info_fastprogf(const char* info, f64 a, f64 b) {
@@ -330,7 +333,7 @@ void info_fastprogf(const char* info, f64 a, f64 b) {
 	prev = a + 1;
 	
 	if (a == b && b != 0)
-		info_prog_end();
+		info_prog_end(info);
 }
 
 void info_prog(const char* info, int a, int b) {
